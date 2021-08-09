@@ -1,0 +1,4 @@
+include book_record/schema.sql
+graft book_record/static
+graft book_record/templates
+global-exclude *.pyc

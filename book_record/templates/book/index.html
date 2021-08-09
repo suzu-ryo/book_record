@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Posts{% endblock %}</h1>
+    <a class="action" href="{{ url_for('book.create') }}">New</a>
+{% endblock %}
+
+{% block content %}
+  {% for post in posts %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ post['title'] }} By {{ post['author'] }}</h1>
+          <div class="about">{{ post['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        <a class="action" href="{{ url_for('book.update', id=post['id']) }}">Edit</a>
+      </header>
+      <p class="body">{{ post['detail'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
