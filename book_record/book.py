@@ -22,7 +22,7 @@ def index():
         if posts is None:
             abort(404, f"Post id {id} doesn't exist.")
 
-        return render_template('book/search.html', posts=posts)
+        return render_template('book/.html', posts=posts)
 
     else:
         db = get_db()
