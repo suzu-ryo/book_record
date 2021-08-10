@@ -19,9 +19,6 @@ def index():
             ('%' + word + '%', '%' + word + '%') 
         ).fetchall()
 
-        if posts is None:
-            abort(404, f"Post id {id} doesn't exist.")
-
         return render_template('book/.html', posts=posts)
 
     else:
