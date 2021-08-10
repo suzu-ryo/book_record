@@ -6,12 +6,18 @@
 
 {% block content %}
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="title">Author</label>
-    <input name="author" id="author" value="{{ request.form['author'] }}" required>
-    <label for="body">Detail</label>
-    <textarea name="detail" id="detail">{{ request.form['detail'] }}</textarea>
-    <input type="submit" value="Save">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input name="title" id="title" value="{{ request.form['title'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="title">Author</label>
+      <input name="author" id="author" value="{{ request.form['author'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="body">Detail</label>
+      <textarea name="detail" id="detail" class="form-control">{{ request.form['detail'] }}</textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Save">
   </form>
 {% endblock %}

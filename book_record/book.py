@@ -7,15 +7,32 @@ from flaskr.db import get_db
 
 bp = Blueprint('book', __name__)
 
-@bp.route('/')
+@bp.route('/', methods=['GET', 'POST'])
 def index():
-    db = get_db()
-    posts = db.execute(
-        'SELECT id, created, title, author, detail'
-        ' FROM post'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('book/index.html', posts=posts)
+    if request.method == 'POST':
+        word = request.form['search_word']
+        posts = get_db().execute(
+            'SELECT id, created, title, author, detail'
+            ' FROM post'
+            ' WHERE title LIKE ? OR author LIKE ?'
+            ' ORDER BY created DESC',
+            ('%' + word + '%', '%' + word + '%') 
+        ).fetchall()
+
+        if posts is None:
+            abort(404, f"Post id {id} doesn't exist.")
+
+        return render_template('book/search.html', posts=posts)
+
+    else:
+        db = get_db()
+        posts = db.execute(
+            'SELECT id, created, title, author, detail'
+            ' FROM post'
+            ' ORDER BY created DESC'
+        ).fetchall()
+
+        return render_template('book/index.html', posts=posts)
 
 
 @bp.route('/create', methods=['GET', 'POST'])

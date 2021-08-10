@@ -6,18 +6,24 @@
 
 {% block content %}
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or post['title'] }}" required>
-    <label for="author">Author</label>
-    <input name="author" id="author"
-      value="{{ request.form['author'] or post['author'] }}" required>
-    <label for="detail">Detail</label>
-    <textarea name="detail" id="detail">{{ request.form['detail'] or post['detail'] }}</textarea>
-    <input type="submit" value="Save">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input name="title" id="title"
+      value="{{ request.form['title'] or post['title'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input name="author" id="author"
+      value="{{ request.form['author'] or post['author'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="detail">Detail</label>
+      <textarea name="detail" id="detail" class="form-control">{{ request.form['detail'] or post['detail'] }}</textarea>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary">
   </form>
   <hr>
   <form action="{{ url_for('book.delete', id=post['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    <input class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
 {% endblock %}
