@@ -113,12 +113,9 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('book.index'))
-<<<<<<< HEAD
 
 
 @bp.route('/individual/<int:id>', methods=['GET'])
 def individual(id):
     post = get_post(id)
     return render_template('book/individual.html', post=post)
-=======
->>>>>>> 353f0db1f8309bcd1e62c42f1e0a33649a8a3ec2
