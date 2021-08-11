@@ -19,10 +19,7 @@ def index():
             ('%' + word + '%', '%' + word + '%') 
         ).fetchall()
 
-        if posts is None:
-            abort(404, f"Post id {id} doesn't exist.")
-
-        return render_template('book/search.html', posts=posts)
+        return render_template('book/index.html', posts=posts)
 
     else:
         db = get_db()
@@ -116,3 +113,9 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('book.index'))
+
+
+@bp.route('/individual/<int:id>', methods=['GET'])
+def individual(id):
+    post = get_post(id)
+    return render_template('book/individual.html', post=post)

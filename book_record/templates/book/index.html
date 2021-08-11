@@ -23,10 +23,10 @@
       <header>
         <div class="d-flex justify-content-between">
           <div>
-          <h1>{{ post['title'] }} by {{ post['author'] }}</h1>
+          <a class="book" href="{{ url_for('book.individual', id=post['id']) }}">{{ post['title'] }} by {{ post['author'] }}</a>
           </div>
           <div> 
-          <div class="about">{{ post['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="created_date">{{ post['created'].strftime('%Y-%m-%d') }}</div>
           </div>
         </div>
         <a class="btn btn-primary btn-sm" href="{{ url_for('book.update', id=post['id']) }}">Edit</a>
