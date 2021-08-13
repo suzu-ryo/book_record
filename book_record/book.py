@@ -128,4 +128,8 @@ def delete(id):
 @bp.route('/individual/<int:id>', methods=['GET'])
 def individual(id):
     post = get_post(id)
+<<<<<<< HEAD
     return render_template('book/individual.html', post=post)
+=======
+    return render_template('book/individual.html', post=post)
+>>>>>>> c524c2ef949f413758b97eecaedabfb49df8b1ce
