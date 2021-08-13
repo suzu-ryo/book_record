@@ -17,8 +17,11 @@
   </div>
 {% endblock %}
 
+
 {% block content %}
-  {% for post in posts %}
+{{ pagination.info }}
+{{ pagination.links }}
+  {% for post in res %}
     <article class="container">
       <header>
         <div class="d-flex justify-content-between">
@@ -37,4 +40,5 @@
       <hr>
     {% endif %}
   {% endfor %}
+{{ pagination.links }}
 {% endblock %}

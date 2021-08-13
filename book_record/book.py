@@ -1,6 +1,8 @@
 from flask import (
     Blueprint, flash, redirect, render_template, request, url_for
 )
+from flask_paginate import Pagination, get_page_parameter
+
 from werkzeug.exceptions import abort
 
 from flaskr.db import get_db
@@ -18,8 +20,12 @@ def index():
             ' ORDER BY created DESC',
             ('%' + word + '%', '%' + word + '%') 
         ).fetchall()
+        page = request.args.get(get_page_parameter(), default=1, type=int)
+        per_page = 3
+        res = posts[(page-1)*per_page:page*per_page]
+        pagination = Pagination(page=page, total=len(posts), per_page=per_page, css_framework='bootstrap4')
 
-        return render_template('book/index.html', posts=posts)
+        return render_template('book/index.html', res=res, request_form=request.form, pagination=pagination)
 
     else:
         db = get_db()
@@ -28,8 +34,12 @@ def index():
             ' FROM post'
             ' ORDER BY created DESC'
         ).fetchall()
+        page = request.args.get(get_page_parameter(), default=1, type=int)
+        per_page = 3
+        res = posts[(page-1)*per_page:page*per_page]
+        pagination = Pagination(page=page, total=len(posts), per_page=per_page, css_framework='bootstrap4')
 
-        return render_template('book/index.html', posts=posts)
+        return render_template('book/index.html', res=res, request_form=request.form, pagination=pagination)
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -113,12 +123,9 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('book.index'))
-<<<<<<< HEAD
 
 
 @bp.route('/individual/<int:id>', methods=['GET'])
 def individual(id):
     post = get_post(id)
     return render_template('book/individual.html', post=post)
-=======
->>>>>>> 353f0db1f8309bcd1e62c42f1e0a33649a8a3ec2
