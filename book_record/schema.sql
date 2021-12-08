@@ -5,5 +5,5 @@ CREATE TABLE post (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT NOT NULL,
     author TEXT NOT NULL,
-    detail TEXT NOT NULL,
+    detail TEXT NOT NULL
 )
