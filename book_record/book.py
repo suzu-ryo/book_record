@@ -125,7 +125,26 @@ def delete(id):
     return redirect(url_for('book.index'))
 
 
-@bp.route('/individual/<int:id>', methods=['GET'])
+@bp.route('/individual/<int:id>', methods=['GET', 'POST'])
 def individual(id):
+    db = get_db()
     post = get_post(id)
-    return render_template('book/individual.html', post=post)
+
+    if request.method == 'POST':
+        comment = request.form['comment']
+        db.execute(
+            'INSERT INTO comments (comment, post_id)'
+            ' VALUES (?, ?)',
+            (comment, id)
+        )
+        db.commit()
+    
+    comments = db.execute(
+        'SELECT comment, created'
+        ' FROM comments'
+        ' WHERE post_id = ?'
+        ' ORDER BY created DESC',
+        (id,)
+    ).fetchall()
+
+    return render_template('book/individual.html', post=post, comments=comments)

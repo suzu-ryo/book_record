@@ -15,5 +15,15 @@
       </header>
       <h3>Detail</h3>
       <p class="body">{{ post['detail'] }}</p>
+      <h4>Comments</h4>
+      {% for comment in comments %}
+        <div class="comment">{{ comment['comment'] }} on {{ comment['created'].strftime('%Y-%m-%d') }}</div>
+      {% endfor %}
+      <form method='post'>
+        <div class="form-group">
+          <input name="comment" id="comment" class="form-control">
+        </div>
+        <input type="submit" value="Comment" class="btn btn-primary btn-small">
+      </form>
     </article>
 {% endblock %}
